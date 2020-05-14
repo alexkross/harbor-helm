@@ -3,23 +3,20 @@
 {{- $tls := .Values.expose.tls -}}
 {{- if eq .Values.expose.ingress.controller "gce" }}
   {{- $_ := set . "portal_path" "/*" -}}
-  {{- $_ := set . "api_path" "/api/*" -}}
+  {{- $_ := set . "api_path" "/api/v2.0/*" -}}
   {{- $_ := set . "service_path" "/service/*" -}}
-  {{- $_ := set . "v2_path" "/v2/*" -}}
   {{- $_ := set . "chartrepo_path" "/chartrepo/*" -}}
   {{- $_ := set . "controller_path" "/c/*" -}}
 {{- else if eq .Values.expose.ingress.controller "ncp" }}
   {{- $_ := set . "portal_path" "/" -}}
-  {{- $_ := set . "api_path" "/api/.*" -}}
+  {{- $_ := set . "api_path" "/api/v2.0/.*" -}}
   {{- $_ := set . "service_path" "/service/.*" -}}
-  {{- $_ := set . "v2_path" "/v2/.*" -}}
   {{- $_ := set . "chartrepo_path" "/chartrepo/.*" -}}
   {{- $_ := set . "controller_path" "/c/.*" -}}
 {{- else }}
   {{- $_ := set . "portal_path" "/" -}}
-  {{- $_ := set . "api_path" "/api/" -}}
+  {{- $_ := set . "api_path" "/api/v2.0/" -}}
   {{- $_ := set . "service_path" "/service/" -}}
-  {{- $_ := set . "v2_path" "/v2/" -}}
   {{- $_ := set . "chartrepo_path" "/chartrepo/" -}}
   {{- $_ := set . "controller_path" "/c/" -}}
 {{- end }}
@@ -74,10 +71,6 @@ spec:
           serviceName: {{ template "harbor.core" . }}
           servicePort: 80
       - path: {{ .service_path }}
-        backend:
-          serviceName: {{ template "harbor.core" . }}
-          servicePort: 80
-      - path: {{ .v2_path }}
         backend:
           serviceName: {{ template "harbor.core" . }}
           servicePort: 80
