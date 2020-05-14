@@ -1,7 +1,7 @@
 apiVersion: v1
 name: harbor
-version: 1.3.2
-appVersion: 1.10.2
+version: 2.0.0
+appVersion: 2.0.0
 description: An open source trusted cloud native registry that stores, signs, and scans content
 keywords:
 - docker
@@ -12,9 +12,14 @@ icon: https://raw.githubusercontent.com/goharbor/harbor/master/docs/img/harbor_l
 sources:
 - https://github.com/goharbor/harbor
 - https://github.com/goharbor/harbor-helm
+- https://github.com/VibrentHealth/harbor-helm
+- https://github.com/alexkross/harbor-helm
 maintainers:
 - name: Wenkai Yin
   email: yinw@vmware.com
 - name: Weiwei He
   email: hweiwei@vmware.com
+- name: Amrit Gill
+- name: Alexander Kross
+  email: Alexander.Kross@gmail.com
 engine: gotpl
