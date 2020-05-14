@@ -197,6 +197,15 @@ persistence:
     s3:
       region: us-west-1
       bucket: bucketname
+      
+      # if you have s3 credentials in a existing k8s secret
+      # name of the secret that already exists
+      # existingSecretName: s3-secret
+      # key name of access key within `existingSecretName`
+      # accessKey:
+      # key name of secret key within `existingSecretName`
+      # secretKey:
+
       #accesskey: awsaccesskey
       #secretkey: awssecretkey
       #regionendpoint: http://myobjects.local
@@ -282,7 +291,7 @@ proxy:
 nginx:
   image:
     repository: goharbor/nginx-photon
-    tag: dev
+    tag: v1.10.2
   replicas: 1
   # resources:
   #  requests:
@@ -297,7 +306,7 @@ nginx:
 portal:
   image:
     repository: goharbor/harbor-portal
-    tag: dev
+    tag: v1.10.2
   replicas: 1
 # resources:
 #  requests:
@@ -312,7 +321,7 @@ portal:
 core:
   image:
     repository: goharbor/harbor-core
-    tag: dev
+    tag: v1.10.2
   replicas: 1
   ## Liveness probe values
   livenessProbe:
@@ -343,7 +352,7 @@ core:
 jobservice:
   image:
     repository: goharbor/harbor-jobservice
-    tag: dev
+    tag: v1.10.2
   replicas: 1
   maxJobWorkers: 10
   # The logger for jobs: "file", "database" or "stdout"
@@ -366,7 +375,7 @@ registry:
   registry:
     image:
       repository: goharbor/registry-photon
-      tag: dev
+      tag: v1.10.2
 
     # resources:
     #  requests:
@@ -375,7 +384,7 @@ registry:
   controller:
     image:
       repository: goharbor/harbor-registryctl
-      tag: dev
+      tag: v1.10.2
 
     # resources:
     #  requests:
@@ -420,7 +429,7 @@ chartmuseum:
   absoluteUrl: false
   image:
     repository: goharbor/chartmuseum-photon
-    tag: dev
+    tag: v1.10.2
   replicas: 1
   # resources:
   #  requests:
@@ -434,18 +443,22 @@ chartmuseum:
 
 clair:
   enabled: true
+  volumes: []
+  volumeMounts: []
+  configMaps: []
   clair:
     image:
       repository: goharbor/clair-photon
-      tag: dev
+      tag: v1.10.2
     # resources:
     #  requests:
     #    memory: 256Mi
     #    cpu: 100m
+  useDefaultConfig: true
   adapter:
     image:
       repository: goharbor/clair-adapter-photon
-      tag: dev
+      tag: v1.10.2
     # resources:
     #  requests:
     #    memory: 256Mi
@@ -512,11 +525,15 @@ trivy:
 
 notary:
   enabled: true
+  configMaps: []
   server:
     image:
       repository: goharbor/notary-server-photon
-      tag: dev
+      tag: v1.10.2
     replicas: 1
+    useDefaultConfig: true
+    volumes: []
+    volumeMounts: []
     # resources:
     #  requests:
     #    memory: 256Mi
@@ -524,8 +541,11 @@ notary:
   signer:
     image:
       repository: goharbor/notary-signer-photon
-      tag: dev
+      tag: v1.10.2
     replicas: 1
+    useDefaultConfig: true
+    volumes: []
+    volumeMounts: []
     # resources:
     #  requests:
     #    memory: 256Mi
@@ -550,7 +570,7 @@ database:
   internal:
     image:
       repository: goharbor/harbor-db
-      tag: dev
+      tag: v1.10.2
     # the image used by the init container
     initContainerImage:
       repository: busybox
@@ -573,6 +593,13 @@ database:
     clairDatabase: "clair"
     notaryServerDatabase: "notary_server"
     notarySignerDatabase: "notary_signer"
+    # clair:
+    #   dbUrl: vault:kv/somePath/database#postgres://${.USERNAME_KEY_FROM_VAULT}:${.PASSWORD_KEY_FROM_VAULT}@{{ template "harbor.database.host" . }}:{{ template "harbor.database.port" . }}/{{ template "harbor.database.clairDatabase" . }}?sslmode={{ template "harbor.database.sslmode" . }}
+    # notarySigner:
+    #   dbUrl: vault:kv/somePath/database#postgres://${.USERNAME_KEY_FROM_VAULT}:${.PASSWORD_KEY_FROM_VAULT}@{{ template "harbor.database.host" . }}:{{ template "harbor.database.port" . }}/{{ template "harbor.database.notarySignerDatabase" . }}?sslmode={{ template "harbor.database.sslmode" . }}
+    # notaryServer:
+    #   dbUrl: vault:kv/somePath/database#postgres://${.USERNAME_KEY_FROM_VAULT}:${.PASSWORD_KEY_FROM_VAULT}@{{ template "harbor.database.host" . }}:{{ template "harbor.database.port" . }}/{{ template "harbor.database.notaryServerDatabase" . }}?sslmode={{ template "harbor.database.sslmode" . }}
+    
     # "disable" - No SSL
     # "require" - Always SSL (skip verification)
     # "verify-ca" - Always SSL (verify that the certificate presented by the
@@ -598,7 +625,7 @@ redis:
   internal:
     image:
       repository: goharbor/redis-photon
-      tag: dev
+      tag: v1.10.2
     # resources:
     #  requests:
     #    memory: 256Mi
@@ -620,3 +647,16 @@ redis:
     password: ""
   ## Additional deployment annotations
   podAnnotations: {}
+
+serviceAccount:
+  enabled: true
+  name: harbor
+
+oidc:
+  enabled: false
+  # name:
+  # endpoint:
+  # clientId: 
+  # clientSecret:
+  # scope:
+  # groups_claim:
