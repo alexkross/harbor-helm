@@ -22,4 +22,6 @@ maintainers:
 - name: Amrit Gill
 - name: Alexander Kross
   email: Alexander.Kross@gmail.com
+- name: Qian Deng
+  email: dengq@vmware.com
 engine: gotpl
