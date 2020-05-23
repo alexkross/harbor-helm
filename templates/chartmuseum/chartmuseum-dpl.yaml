@@ -81,6 +81,7 @@ spec:
             value: "{{ .Values.proxy.httpsProxy }}"
           - name: NO_PROXY
             value: "{{ template "harbor.noProxy" . }}"
+          {{- end }}
           {{- if and (eq $storageType "s3") (hasKey $storage.s3 "existingSecretName")}}
           - name: AWS_ACCESS_KEY_ID
             valueFrom:
