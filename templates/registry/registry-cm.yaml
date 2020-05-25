@@ -178,6 +178,12 @@ data:
             keypairid: {{ $middleware.cloudFront.keypairid }}
             duration: {{ $middleware.cloudFront.duration }}
             ipfilteredby: {{ $middleware.cloudFront.ipfilteredby }}
+    {{- else if eq $middlewareType "redirect" }}
+    middleware:
+      storage:
+        - name: redirect
+          options:
+            redirect: {{ $middleware.redirect.baseurl }}
     {{- end }}
     {{- end }}
   ctl-config.yml: |+
