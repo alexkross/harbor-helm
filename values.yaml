@@ -112,7 +112,7 @@ internalTLS:
   certSource: "auto"
   # The content of trust ca, only available when `certSource` is "manual"
   trustCa: ""
-  # core related cert congfiguration
+  # core related cert configuration
   core:
     # secret name for core's tls certs
     secretName: ""
@@ -120,7 +120,7 @@ internalTLS:
     crt: ""
     # Content of core's TLS key file, only available when `certSource` is "manual"
     key: ""
-  # jobservice related cert congfiguration
+  # jobservice related cert configuration
   jobservice:
     # secret name for jobservice's tls certs
     secretName: ""
@@ -128,7 +128,7 @@ internalTLS:
     crt: ""
     # Content of jobservice's TLS key file, only available when `certSource` is "manual"
     key: ""
-  # registry related cert congfiguration
+  # registry related cert configuration
   registry:
     # secret name for registry's tls certs
     secretName: ""
@@ -136,7 +136,7 @@ internalTLS:
     crt: ""
     # Content of registry's TLS key file, only available when `certSource` is "manual"
     key: ""
-  # portal related cert congfiguration
+  # portal related cert configuration
   portal:
     # secret name for portal's tls certs
     secretName: ""
@@ -144,7 +144,7 @@ internalTLS:
     crt: ""
     # Content of portal's TLS key file, only available when `certSource` is "manual"
     key: ""
-  # chartmuseum related cert congfiguration
+  # chartmuseum related cert configuration
   chartmuseum:
     # secret name for chartmuseum's tls certs
     secretName: ""
@@ -152,7 +152,7 @@ internalTLS:
     crt: ""
     # Content of chartmuseum's TLS key file, only available when `certSource` is "manual"
     key: ""
-  # clair related cert congfiguration
+  # clair related cert configuration
   clair:
     # secret name for clair's tls certs
     secretName: ""
@@ -160,7 +160,7 @@ internalTLS:
     crt: ""
     # Content of clair's TLS key file, only available when `certSource` is "manual"
     key: ""
-  # trivy related cert congfiguration
+  # trivy related cert configuration
   trivy:
     # secret name for trivy's tls certs
     secretName: ""

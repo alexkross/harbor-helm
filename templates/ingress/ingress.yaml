@@ -33,7 +33,6 @@ metadata:
 {{- if .Values.internalTLS.enabled }}
     nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
 {{- end }}
-
 spec:
   {{- if $tls.enabled }}
   tls:
@@ -93,7 +92,6 @@ metadata:
 {{ include "harbor.labels" . | indent 4 }}
   annotations:
 {{ toYaml $ingress.annotations | indent 4 }}
-
 spec:
   {{- if $tls.enabled }}
   tls:
@@ -124,5 +122,5 @@ spec:
     {{- if $ingress.hosts.notary }}
     host: {{ $ingress.hosts.notary }}
     {{- end }}
-  {{- end }}
+{{- end }}
 {{- end }}
