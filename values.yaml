@@ -274,7 +274,7 @@ persistence:
       # accessKey:
       # key name of secret key within `existingSecretName`
       # secretKey:
-
+      # or create a new registry-secret from values (note lower case):
       #accesskey: awsaccesskey
       #secretkey: awssecretkey
       #regionendpoint: http://myobjects.local
@@ -360,7 +360,7 @@ proxy:
 nginx:
   image:
     repository: goharbor/nginx-photon
-    tag: v1.10.2
+    tag: v2.0.0-dev
   replicas: 1
   # resources:
   #  requests:
@@ -375,7 +375,7 @@ nginx:
 portal:
   image:
     repository: goharbor/harbor-portal
-    tag: v1.10.2
+    tag: v2.0.0-dev
   replicas: 1
 # resources:
 #  requests:
@@ -390,7 +390,7 @@ portal:
 core:
   image:
     repository: goharbor/harbor-core
-    tag: v1.10.2
+    tag: v2.0.0-dev
   replicas: 1
   ## Liveness probe values
   livenessProbe:
@@ -421,7 +421,7 @@ core:
 jobservice:
   image:
     repository: goharbor/harbor-jobservice
-    tag: v1.10.2
+    tag: v2.0.0-dev
   replicas: 1
   maxJobWorkers: 10
   # The logger for jobs: "file", "database" or "stdout"
@@ -444,7 +444,7 @@ registry:
   registry:
     image:
       repository: goharbor/registry-photon
-      tag: v1.10.2
+      tag: v2.0.0-dev
 
     # resources:
     #  requests:
@@ -453,7 +453,7 @@ registry:
   controller:
     image:
       repository: goharbor/harbor-registryctl
-      tag: v1.10.2
+      tag: v2.0.0-dev
 
     # resources:
     #  requests:
@@ -491,6 +491,9 @@ registry:
       # The secret key that should be present is CLOUDFRONT_KEY_DATA, which should be the encoded private key
       # that allows access to CloudFront
       privateKeySecret: "my-secret"
+    #type: redirect
+    #redirect:
+    #  baseurl: http://minio.harbor.domain:9000
 
 chartmuseum:
   enabled: true
@@ -498,7 +501,7 @@ chartmuseum:
   absoluteUrl: false
   image:
     repository: goharbor/chartmuseum-photon
-    tag: v1.10.2
+    tag: v2.0.0-dev
   replicas: 1
   # resources:
   #  requests:
@@ -518,7 +521,7 @@ clair:
   clair:
     image:
       repository: goharbor/clair-photon
-      tag: v1.10.2
+      tag: v2.0.0-dev
     # resources:
     #  requests:
     #    memory: 256Mi
@@ -527,7 +530,7 @@ clair:
   adapter:
     image:
       repository: goharbor/clair-adapter-photon
-      tag: v1.10.2
+      tag: v2.0.0-dev
     # resources:
     #  requests:
     #    memory: 256Mi
@@ -600,7 +603,7 @@ notary:
   server:
     image:
       repository: goharbor/notary-server-photon
-      tag: v1.10.2
+      tag: v2.0.0-dev
     replicas: 1
     useDefaultConfig: true
     volumes: []
@@ -612,7 +615,7 @@ notary:
   signer:
     image:
       repository: goharbor/notary-signer-photon
-      tag: v1.10.2
+      tag: v2.0.0-dev
     replicas: 1
     useDefaultConfig: true
     volumes: []
@@ -641,7 +644,7 @@ database:
   internal:
     image:
       repository: goharbor/harbor-db
-      tag: v1.10.2
+      tag: v2.0.0-dev
     # the image used by the init container
     initContainerImage:
       repository: busybox
@@ -696,7 +699,7 @@ redis:
   internal:
     image:
       repository: goharbor/redis-photon
-      tag: v1.10.2
+      tag: v2.0.0-dev
     # resources:
     #  requests:
     #    memory: 256Mi
@@ -705,7 +708,7 @@ redis:
     tolerations: []
     affinity: {}
   external:
-    host: "192.168.0.2"
+    host: redis.harbor.domain
     port: "6379"
     # The "coreDatabaseIndex" must be "0" as the library Harbor
     # used doesn't support configuring it
