@@ -183,7 +183,7 @@ data:
       storage:
         - name: redirect
           options:
-            redirect: {{ $middleware.redirect.baseurl }}
+            baseurl: {{ $middleware.redirect.baseurl }}
     {{- end }}
     {{- end }}
   ctl-config.yml: |+
