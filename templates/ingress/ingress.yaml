@@ -66,10 +66,6 @@ spec:
         backend:
           serviceName: {{ template "harbor.core" . }}
           servicePort: {{ template "harbor.core.servicePort" . }}
-      - path: {{ .v2_path }}
-        backend:
-          serviceName: {{ template "harbor.core" . }}
-          servicePort: {{ template "harbor.core.servicePort" . }}
       - path: {{ .chartrepo_path }}
         backend:
           serviceName: {{ template "harbor.core" . }}
